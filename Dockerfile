@@ -1,5 +1,5 @@
-# 1. 使用 .NET 8 官方镜像进行编译
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# 1. 使用 .NET 9 官方镜像进行编译
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 # 2. 把所有代码复制进去并还原依赖
@@ -10,7 +10,7 @@ RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
 # 4. 运行阶段：使用更轻量的运行镜像
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 COPY --from=build /app/out .
 
