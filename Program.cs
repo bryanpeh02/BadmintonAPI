@@ -36,7 +36,7 @@ app.UseSwaggerUI();
 
 app.UseCors("AllowAll");
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 // Added UseAuthorization placeholder below UseCors as requested
 app.UseAuthorization();
