@@ -383,7 +383,7 @@ namespace BadmintonFYP.Api.Controllers
         public async Task<IActionResult> AdminUpdateBooking(int reservationId, [FromQuery] int adminId, [FromBody] AdminUpdateBookingRequest request)
         {
             var admin = await _context.Users.FindAsync(adminId);
-            if (admin == null || admin.Role != "Admin")
+            if (admin == null || (admin.Role != "Admin" && admin.Role != "SuperAdmin"))
             {
                 return StatusCode(403, new { Message = "Unauthorized. Only Admins can override bookings." });
             }
@@ -654,7 +654,7 @@ namespace BadmintonFYP.Api.Controllers
         public async Task<IActionResult> AdminDeleteBooking(int reservationId, [FromQuery] int adminId)
         {
             var admin = await _context.Users.FindAsync(adminId);
-            if (admin == null || admin.Role != "Admin")
+            if (admin == null || (admin.Role != "Admin" && admin.Role != "SuperAdmin"))
             {
                 return StatusCode(403, new { Message = "Unauthorized. Only Admins can force delete bookings." });
             }
@@ -763,7 +763,7 @@ namespace BadmintonFYP.Api.Controllers
         public async Task<IActionResult> TogglePayment(int id, [FromQuery] int adminId)
         {
             var admin = await _context.Users.FindAsync(adminId);
-            if (admin == null || admin.Role != "Admin")
+            if (admin == null || (admin.Role != "Admin" && admin.Role != "SuperAdmin"))
             {
                 return StatusCode(403, new { Message = "Unauthorized. Only Admins can toggle payment status." });
             }

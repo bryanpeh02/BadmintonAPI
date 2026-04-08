@@ -35,7 +35,7 @@ namespace BadmintonFYP.Api.Controllers
         public async Task<IActionResult> UpdateSettings([FromQuery] int adminId, [FromBody] SystemSetting request)
         {
             var admin = await _context.Users.FindAsync(adminId);
-            if (admin == null || admin.Role != "Admin")
+            if (admin == null || (admin.Role != "Admin" && admin.Role != "SuperAdmin"))
             {
                 return StatusCode(403, new { Message = "Unauthorized. Only Admins can update system settings." });
             }

@@ -31,7 +31,7 @@ namespace BadmintonFYP.Api.Controllers
         public async Task<IActionResult> GetAllAnnouncements([FromQuery] int adminId)
         {
             var admin = await _context.Users.FindAsync(adminId);
-            if (admin == null || admin.Role != "Admin")
+            if (admin == null || (admin.Role != "Admin" && admin.Role != "SuperAdmin"))
             {
                 return StatusCode(403, new { Message = "Unauthorized." });
             }
@@ -47,7 +47,7 @@ namespace BadmintonFYP.Api.Controllers
         public async Task<IActionResult> CreateAnnouncement([FromQuery] int adminId, [FromBody] AnnouncementRequest request)
         {
             var admin = await _context.Users.FindAsync(adminId);
-            if (admin == null || admin.Role != "Admin")
+            if (admin == null || (admin.Role != "Admin" && admin.Role != "SuperAdmin"))
             {
                 return StatusCode(403, new { Message = "Unauthorized." });
             }
@@ -75,7 +75,7 @@ namespace BadmintonFYP.Api.Controllers
         public async Task<IActionResult> DeleteAnnouncement(int id, [FromQuery] int adminId)
         {
             var admin = await _context.Users.FindAsync(adminId);
-            if (admin == null || admin.Role != "Admin")
+            if (admin == null || (admin.Role != "Admin" && admin.Role != "SuperAdmin"))
             {
                 return StatusCode(403, new { Message = "Unauthorized." });
             }
